@@ -79,13 +79,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func startGameButton(_ sender: UIButton) {
+        score = 0
         isPlaying = true
         playButton.isHidden = true
+        colorLabel.isHidden = false
+        colorWord.isHidden = false
+        noButton.isHidden = false
+        yesButton.isHidden = false
         gameTimer()
     }
     
     func gameTimer(){
-        timeLeft = 10
+        timeLeft = 60
         if timer != nil {
             timer?.invalidate()
         }
@@ -131,8 +136,9 @@ class ViewController: UIViewController {
     
     @IBAction func noButtonTapped(_ sender: Any) {
         if isPlaying {
-            if answerCheck(){
+            if answerCheck() == false {
                 score += 100
+
             } else {
                 score -= 50
             }
@@ -151,6 +157,7 @@ class ViewController: UIViewController {
         colorLabel.textColor = realColor
         colorLabel.text = realColorText
         colorWord.text = colorText
+        scoreLabel.text = "Score: \(score)"
     }
     
     
@@ -159,8 +166,21 @@ class ViewController: UIViewController {
         
         randomizeLabels()
         
-        yesButton.backgroundColor = UIColor.green
-        noButton.backgroundColor = UIColor.red
+        yesButton.backgroundColor = UIColor(named: "buttonBackground")
+        yesButton.layer.cornerRadius = 8
+        yesButton.layer.shadowColor = UIColor(named: "buttonShadow")?.cgColor
+        yesButton.layer.shadowOpacity = 0.8
+        yesButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+        yesButton.layer.borderWidth = 2
+        yesButton.layer.borderColor = UIColor(named: "buttonBorder")?.cgColor
+        
+        noButton.backgroundColor = UIColor(named: "buttonBackground")
+        noButton.layer.cornerRadius = 8
+        noButton.layer.shadowColor = UIColor(named: "buttonShadow")?.cgColor
+        noButton.layer.shadowOpacity = 0.8
+        noButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+        noButton.layer.borderWidth = 2
+        noButton.layer.borderColor = UIColor(named: "buttonBorder")?.cgColor
         // Do any additional setup after loading the view.
     }
 }
